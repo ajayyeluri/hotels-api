@@ -40,6 +40,24 @@ public class HotelController extends AbstractRestHandler {
         response.setHeader("Location", request.getRequestURL().append("/").append(createdHotel.getId()).toString());
     }
 
+    @RequestMapping(value = "/load",
+            method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Loads hotel resources")
+    public void loadHotel(HttpServletRequest request, HttpServletResponse response) {
+
+        for ( int i = 10000 ; i < 10010; i++) {
+        Hotel hotel = new Hotel();
+        hotel.setId(i);
+        hotel.setName("name - " + i  );
+        hotel.setDescription( "Desc - " + i );
+        hotel.setCity( "City - " + i );
+        hotel.setRating(i%5);
+        Hotel createdHotel = this.hotelService.createHotel(hotel);
+        }
+
+    }
+
     @RequestMapping(value = "",
             method = RequestMethod.GET,
             produces = {"application/json", "application/xml"})
