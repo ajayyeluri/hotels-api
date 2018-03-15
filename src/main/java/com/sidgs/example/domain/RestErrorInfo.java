@@ -1,4 +1,4 @@
-package com.khoubyari.example.domain;
+package com.sidgs.example.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

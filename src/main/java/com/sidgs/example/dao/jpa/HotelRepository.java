@@ -1,6 +1,6 @@
-package com.khoubyari.example.dao.jpa;
+package com.sidgs.example.dao.jpa;
 
-import com.khoubyari.example.domain.Hotel;
+import com.sidgs.example.domain.Hotel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

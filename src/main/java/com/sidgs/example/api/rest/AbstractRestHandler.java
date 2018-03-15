@@ -1,8 +1,8 @@
-package com.khoubyari.example.api.rest;
+package com.sidgs.example.api.rest;
 
-import com.khoubyari.example.domain.RestErrorInfo;
-import com.khoubyari.example.exception.DataFormatException;
-import com.khoubyari.example.exception.ResourceNotFoundException;
+import com.sidgs.example.domain.RestErrorInfo;
+import com.sidgs.example.exception.DataFormatException;
+import com.sidgs.example.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;

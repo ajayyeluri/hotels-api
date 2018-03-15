@@ -1,13 +1,13 @@
-package com.khoubyari.example.test;
+package com.sidgs.example.test;
 
 /**
  * Uses JsonPath: http://goo.gl/nwXpb, Hamcrest and MockMVC
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.khoubyari.example.Application;
-import com.khoubyari.example.api.rest.HotelController;
-import com.khoubyari.example.domain.Hotel;
+import com.sidgs.example.Application;
+import com.sidgs.example.api.rest.HotelController;
+import com.sidgs.example.domain.Hotel;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.khoubyari</groupId>
-	<artifactId>spring-boot-rest-example</artifactId>
+	<groupId>com.sidgs</groupId>
+	<artifactId>hotel-api</artifactId>
 	<version>0.5.0</version>
 	<packaging>war</packaging>
 	<description>Example project demonstrating REST APIs implemented using Spring Boot, in-memory database, embedded Tomcat, Swagger, JsonPath, Hamcrest and MockMVC</description>
@@ -16,7 +16,7 @@
 	</parent>
 
 	<properties>
-		<start-class>com.khoubyari.example.Application</start-class>
+		<start-class>com.sidgs.example.Application</start-class>
 	</properties>
 
 	<dependencies>
