@@ -8,6 +8,12 @@ Congrats now you are ready to run your services
 
 kubectl create -f deploy.yml 
 
+# to redeploy 
+
+kubectl delete -f deploy.yml 
+kubectl create -f deploy.yml 
+
+
 ```
 
 That should be all.. Lets check if our app are running 
@@ -28,6 +34,12 @@ Now Lets expose it
 ```
 
 kubectl create -f service.yml 
+
+# to recreate 
+
+kubectl delete -f service.yml 
+kubectl create -f service.yml 
+
 
 ```
 
