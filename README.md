@@ -31,7 +31,21 @@ Once the application runs you should see something like this
 * Docker pull sidgs001/hotel-api
 * once successfully pulled run it as shown below 
 
+```
 
+docker pull sidgs001/hotel-api:latest 
+image=`docker images  sidgs001/hotel-api:latest -q` 
+docker run -d -p8090:8090  $image
+
+```
+
+Once the application runs you should see something like this 
+
+```
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                              
+b32ebdbc5fc4        a2cbadd071ec        "java -Djava.secur..."   4 minutes ago       Up 4 minutes        0.0.0.0:8090->8090/tcp             
+
+```
 
 ## About the Service
 

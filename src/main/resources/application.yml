@@ -37,6 +37,9 @@ info:
 
 hotel.service:
   name: 'default profile:'
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
 ---
 spring:
   profiles: test
