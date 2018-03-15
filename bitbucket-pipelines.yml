@@ -25,5 +25,5 @@ pipelines:
           - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
           # push the new Docker image to the Docker registry
           - docker push $IMAGE_NAME:$BITBUCKET_COMMIT
-          - docker tag $IMAGE_NAME:$BITBUCKET_COMMIT $IMAGE_NAME:LATEST
-          - docker push $IMAGE_NAME:LATEST
+          - docker tag $IMAGE_NAME:$BITBUCKET_COMMIT $IMAGE_NAME:latest
+          - docker push $IMAGE_NAME:latest
