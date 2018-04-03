@@ -1,6 +1,7 @@
 # Spring Boot "Microservice" Example Project
 
-This is a sample Java / Maven / Spring Boot (version 1.5.6) application that can be used as a starter for creating a microservice complete with built-in health check, metrics and much more. I hope it helps you.
+This is a sample Java / Maven / Spring Boot (version 1.5.6) application that can be used as a starter for creating a microservice 
+complete with built-in health check, metrics and much more. 
 
 ## How to Run 
 
@@ -12,7 +13,7 @@ This application is packaged as a war which has Tomcat 8 embedded. No Tomcat or 
 * You can build the project and run the tests by running ```mvn clean package```
 * Once successfully built, you can run the service by one of these two methods:
 ```
-        java -jar -Dspring.profiles.active=test target/spring-boot-rest-example-0.5.0.war
+        java -jar -Dspring.profiles.active=test target/integration-api.war
 or
         mvn spring-boot:run -Drun.arguments="spring.profiles.active=test"
 ```
@@ -28,13 +29,13 @@ Once the application runs you should see something like this
 ### As a Container 
 
 * Install Docker 
-* Docker pull sidgs001/hotel-api
+* Docker pull yva19426/integration-api
 * once successfully pulled run it as shown below 
 
 ```
 
-docker pull sidgs001/hotel-api:latest 
-image=`docker images  sidgs001/hotel-api:latest -q` 
+docker pull yva19426/integration-api:latest 
+image=`docker images  yva19426/integration-api:latest -q` 
 docker run -d -p8090:8090  $image
 
 ```
@@ -49,7 +50,7 @@ b32ebdbc5fc4        a2cbadd071ec        "java -Djava.secur..."   4 minutes ago  
 
 ## About the Service
 
-The service is just a simple hotel review REST service. It uses an in-memory database (H2) to store the data. You can also do with a relational database like MySQL or PostgreSQL. If your database connection properties work, you can call some REST endpoints defined in ```com.sidgs.example.api.rest.hotelController``` on **port 8090**. (see below)
+The service is just a simple Contact review REST service. It uses an in-memory database (H2) to store the data. You can also do with a relational database like MySQL or PostgreSQL. If your database connection properties work, you can call some REST endpoints defined in ```com.integration.api.rest.ContactController``` on **port 8090**. (see below)
 
 More interestingly, you can start calling some of the operational endpoints (see full list below) like ```/metrics``` and ```/health``` (these are available on **port 8091**)
 
@@ -78,10 +79,10 @@ http://localhost:8091/info
 http://localhost:8091/metrics
 ```
 
-### Create a hotel resource
+### Create a integration resource
 
 ```
-POST /example/v1/hotels
+POST /v1/integrations
 Accept: application/json
 Content-Type: application/json
 
@@ -93,30 +94,30 @@ Content-Type: application/json
 }
 
 RESPONSE: HTTP 201 (Created)
-Location header: http://localhost:8090/example/v1/hotels/1
+Location header: http://localhost:8090/v1/contacts/1
 ```
 
-### Retrieve a paginated list of hotels
+### Retrieve a paginated list of integrations
 
 ```
-http://localhost:8090/example/v1/hotels?page=0&size=10
+http://localhost:8090/v1/contacts?page=0&size=10
 
 Response: HTTP 200
 Content: paginated list 
 ```
 
-### Update a hotel resource
+### Update a integration resource
 
 ```
-PUT /example/v1/hotels/1
+PUT /example/v1/contacts/1
 Accept: application/json
 Content-Type: application/json
 
 {
-"name" : "Beds R Us",
-"description" : "Very basic, small rooms but clean",
-"city" : "Santa Ana",
-"rating" : 3
+"name" : "Batman",
+"email" : "bruce@wayne.com",
+"city" : "Gotham",
+"zipcode" : 11343
 }
 
 RESPONSE: HTTP 204 (No Content)
@@ -127,7 +128,9 @@ Run the server and browse to localhost:8090/swagger-ui.html
 
 # About Spring Boot
 
-Spring Boot is an "opinionated" application bootstrapping framework that makes it easy to create new RESTful services (among other types of applications). It provides many of the usual Spring facilities that can be configured easily usually without any XML. In addition to easy set up of Spring Controllers, Spring Data, etc. Spring Boot comes with the Actuator module that gives the application the following endpoints helpful in monitoring and operating the service:
+Spring Boot is an "opinionated" application bootstrapping framework that makes it easy to create new RESTful services (among other types of applications). 
+It provides many of the usual Spring facilities that can be configured easily usually without any XML. In addition to easy set up of Spring Controllers, 
+Spring Data, etc. Spring Boot comes with the Actuator module that gives the application the following endpoints helpful in monitoring and operating the service:
 
 **/metrics** Shows “metrics” information for the current application.
 
@@ -167,6 +170,7 @@ Here is what you would do to back the services with MySQL, for example:
 ### Append this to the end of application.yml: 
 
 ```
+
 ---
 spring:
   profiles: mysql
@@ -183,7 +187,7 @@ spring:
       ddl-auto: update # todo: in non-dev environments, comment this out:
 
 
-hotel.service:
+integration.service:
   name: 'test profile:'
 ```
 
@@ -206,7 +210,7 @@ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -Dspring
 ```
 and then you can connect to it remotely using your IDE. For example, from IntelliJ You have to add remote debug configuration: Edit configuration -> Remote.
 
-# Questions and Comments: khoubyari@gmail.com
+# Questions and Comments: ayeluri@gmail.com
 
 
 

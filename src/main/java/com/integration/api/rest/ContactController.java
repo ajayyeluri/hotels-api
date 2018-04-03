@@ -1,12 +1,11 @@
-package com.sidgs.example.api.rest;
+package com.integration.api.rest;
 
-import com.sidgs.example.domain.Hotel;
+import com.integration.domain.Contact;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-import com.sidgs.example.exception.DataFormatException;
-import com.sidgs.example.service.HotelService;
+import com.integration.exception.DataFormatException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,39 +20,39 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @RestController
-@RequestMapping(value = "/example/v1/hotels")
-@Api(tags = {"hotels"})
-public class HotelController extends AbstractRestHandler {
+@RequestMapping(value = "/v1/contacts")
+@Api(tags = {"contacts"})
+public class ContactController extends AbstractRestHandler {
 
     @Autowired
-    private HotelService hotelService;
+    private com.integration.service.contact.ContactService service;
 
     @RequestMapping(value = "",
             method = RequestMethod.POST,
             consumes = {"application/json", "application/xml"},
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create a hotel resource.", notes = "Returns the URL of the new resource in the Location header.")
-    public void createHotel(@RequestBody Hotel hotel,
+    @ApiOperation(value = "Create a contact resource.", notes = "Returns the URL of the new resource in the Location header.")
+    public void createHotel(@RequestBody Contact contact,
                                  HttpServletRequest request, HttpServletResponse response) {
-        Hotel createdHotel = this.hotelService.createHotel(hotel);
-        response.setHeader("Location", request.getRequestURL().append("/").append(createdHotel.getId()).toString());
+        Contact createdContact = this.service.create(contact);
+        response.setHeader("Location", request.getRequestURL().append("/").append(createdContact.getId()).toString());
     }
 
     @RequestMapping(value = "/load",
             method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Loads hotel resources")
+    @ApiOperation(value = "Loads contact resources")
     public void loadHotel(HttpServletRequest request, HttpServletResponse response) {
 
         for ( int i = 10000 ; i < 10010; i++) {
-        Hotel hotel = new Hotel();
-        hotel.setId(i);
-        hotel.setName("name - " + i  );
-        hotel.setDescription( "Desc - " + i );
-        hotel.setCity( "City - " + i );
-        hotel.setRating(i%5);
-        Hotel createdHotel = this.hotelService.createHotel(hotel);
+        Contact contact = new Contact();
+        contact.setId(i);
+        contact.setName("name - " + i  );
+        contact.setEmail(i+"@contact");
+        contact.setCity("City - " + i);
+        contact.setZipcode(i % 5);
+        Contact createdContact = this.service.create(contact);
         }
 
     }
@@ -62,31 +61,31 @@ public class HotelController extends AbstractRestHandler {
             method = RequestMethod.GET,
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Get a paginated list of all hotels.", notes = "The list is paginated. You can provide a page number (default 0) and a page size (default 100)")
+    @ApiOperation(value = "Get a paginated list of all contacts.", notes = "The list is paginated. You can provide a page number (default 0) and a page size (default 100)")
     public
     @ResponseBody
-    Page<Hotel> getAllHotel(@ApiParam(value = "The page number (zero-based)", required = true)
+    Page<Contact> getAllHotel(@ApiParam(value = "The page number (zero-based)", required = true)
                                       @RequestParam(value = "page", required = true, defaultValue = DEFAULT_PAGE_NUM) Integer page,
                                       @ApiParam(value = "Tha page size", required = true)
                                       @RequestParam(value = "size", required = true, defaultValue = DEFAULT_PAGE_SIZE) Integer size,
                                       HttpServletRequest request, HttpServletResponse response) {
-        return this.hotelService.getAllHotels(page, size);
+        return this.service.getAll(page, size);
     }
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Get a single hotel.", notes = "You have to provide a valid hotel ID.")
+    @ApiOperation(value = "Get a single contact.", notes = "You have to provide a valid contact ID.")
     public
     @ResponseBody
-    Hotel getHotel(@ApiParam(value = "The ID of the hotel.", required = true)
+    Contact getHotel(@ApiParam(value = "The ID of the contact.", required = true)
                              @PathVariable("id") Long id,
                              HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Hotel hotel = this.hotelService.getHotel(id);
-        checkResourceFound(hotel);
+        Contact contact = this.service.fetch(id);
+        checkResourceFound(contact);
         //todo: http://goo.gl/6iNAkz
-        return hotel;
+        return contact;
     }
 
     @RequestMapping(value = "/{id}",
@@ -94,13 +93,13 @@ public class HotelController extends AbstractRestHandler {
             consumes = {"application/json", "application/xml"},
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ApiOperation(value = "Update a hotel resource.", notes = "You have to provide a valid hotel ID in the URL and in the payload. The ID attribute can not be updated.")
-    public void updateHotel(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
-                                 @PathVariable("id") Long id, @RequestBody Hotel hotel,
+    @ApiOperation(value = "Update a contact resource.", notes = "You have to provide a valid contact ID in the URL and in the payload. The ID attribute can not be updated.")
+    public void updateHotel(@ApiParam(value = "The ID of the existing contact resource.", required = true)
+                                 @PathVariable("id") Long id, @RequestBody Contact contact,
                                  HttpServletRequest request, HttpServletResponse response) {
-        checkResourceFound(this.hotelService.getHotel(id));
-        if (id != hotel.getId()) throw new DataFormatException("ID doesn't match!");
-        this.hotelService.updateHotel(hotel);
+        checkResourceFound(this.service.fetch(id));
+        if (id != contact.getId()) throw new DataFormatException("ID doesn't match!");
+        this.service.update(contact);
     }
 
     //todo: @ApiImplicitParams, @ApiResponses
@@ -108,11 +107,11 @@ public class HotelController extends AbstractRestHandler {
             method = RequestMethod.DELETE,
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ApiOperation(value = "Delete a hotel resource.", notes = "You have to provide a valid hotel ID in the URL. Once deleted the resource can not be recovered.")
-    public void deleteHotel(@ApiParam(value = "The ID of the existing hotel resource.", required = true)
+    @ApiOperation(value = "Delete a contact resource.", notes = "You have to provide a valid contact ID in the URL. Once deleted the resource can not be recovered.")
+    public void deleteHotel(@ApiParam(value = "The ID of the existing contact resource.", required = true)
                                  @PathVariable("id") Long id, HttpServletRequest request,
                                  HttpServletResponse response) {
-        checkResourceFound(this.hotelService.getHotel(id));
-        this.hotelService.deleteHotel(id);
+        checkResourceFound(this.service.fetch(id));
+        this.service.delete(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.sidgs.example.domain;
+package com.integration.domain;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -7,10 +7,10 @@ import javax.xml.bind.annotation.*;
  * a simple domain entity doubling as a DTO
  */
 @Entity
-@Table(name = "hotel")
+@Table(name = "contact")
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Hotel {
+public class Contact {
 
     @Id
     @GeneratedValue()
@@ -20,21 +20,21 @@ public class Hotel {
     private String name;
 
     @Column()
-    private String description;
+    private String email;
 
     @Column()
     String city;
 
     @Column()
-    private int rating;
+    private int zipcode;
 
-    public Hotel() {
+    public Contact() {
     }
 
-    public Hotel(String name, String description, int rating) {
+    public Contact(String name, String email, int zipcode) {
         this.name = name;
-        this.description = description;
-        this.rating = rating;
+        this.email = email;
+        this.zipcode = zipcode;
     }
 
     public long getId() {
@@ -54,20 +54,20 @@ public class Hotel {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getRating() {
-        return rating;
+    public int getZipcode() {
+        return zipcode;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getCity() {
@@ -78,14 +78,15 @@ public class Hotel {
         this.city = city;
     }
 
+
     @Override
     public String toString() {
-        return "Hotel {" +
+        return "Contact{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", email='" + email + '\'' +
                 ", city='" + city + '\'' +
-                ", rating=" + rating +
+                ", zipcode=" + zipcode +
                 '}';
     }
 }

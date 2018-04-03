@@ -1,4 +1,4 @@
-package com.sidgs.example.api.rest.docs;
+package com.integration.api.rest.docs;
 
 import com.google.common.base.Predicates;
 
@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan("com.khoubyari.example.api.rest")
+@ComponentScan("com.integration.api.rest")
 public class SwaggerConfig {
 
 
@@ -33,15 +33,14 @@ public class SwaggerConfig {
     
 
     private ApiInfo apiInfo() {
-        String description = "REST example";
+        String description = "Integration API";
         return new ApiInfoBuilder()
-                .title("REST example")
+                .title("Integration API")
                 .description(description)
-                .termsOfServiceUrl("github")
-                .license("Siamak")
+                .termsOfServiceUrl("GPL")
+                .license("YVA")
                 .licenseUrl("")
                 .version("1.0")
- //               .contact(new Contact("siamak"))
                 .build();
     }
 

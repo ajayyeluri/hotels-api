@@ -1,4 +1,4 @@
-package com.sidgs.example.exception;
+package com.integration.exception;
 
 /**
  * for HTTP 400 errors

@@ -17,7 +17,7 @@ pipelines:
           - mvn -B verify
           - mvn -DskipTests=true package
           # Set $DOCKER_HUB_USERNAME and $DOCKER_HUB_PASSWORD as environment variables in repository settings
-          - export IMAGE_NAME=sidgs001/hotel-api
+          - export IMAGE_NAME=yva19426/integration-api
 
           # build the Docker image (this will use the Dockerfile in the root of the repo)
           - docker build -t $IMAGE_NAME:$BITBUCKET_COMMIT .

@@ -1,13 +1,13 @@
-package com.sidgs.example.test;
+package com.integration.test;
 
 /**
  * Uses JsonPath: http://goo.gl/nwXpb, Hamcrest and MockMVC
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sidgs.example.Application;
-import com.sidgs.example.api.rest.HotelController;
-import com.sidgs.example.domain.Hotel;
+import com.integration.api.rest.ContactController;
+import com.integration.Application;
+import com.integration.domain.Contact;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -37,12 +37,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
-public class HotelControllerTest {
+public class ContactControllerTest {
 
     private static final String RESOURCE_LOCATION_PATTERN = "http://localhost/example/v1/hotels/[0-9]+";
 
     @InjectMocks
-    HotelController controller;
+    ContactController controller;
 
     @Autowired
     WebApplicationContext context;
@@ -65,7 +65,7 @@ public class HotelControllerTest {
 
     @Test
     public void shouldCreateRetrieveDelete() throws Exception {
-        Hotel r1 = mockHotel("shouldCreateRetrieveDelete");
+        Contact r1 = mockHotel("shouldCreateRetrieveDelete");
         byte[] r1Json = toJson(r1);
 
         //CREATE
@@ -85,8 +85,8 @@ public class HotelControllerTest {
                 .andExpect(jsonPath("$.id", is((int) id)))
                 .andExpect(jsonPath("$.name", is(r1.getName())))
                 .andExpect(jsonPath("$.city", is(r1.getCity())))
-                .andExpect(jsonPath("$.description", is(r1.getDescription())))
-                .andExpect(jsonPath("$.rating", is(r1.getRating())));
+                .andExpect(jsonPath("$.description", is(r1.getEmail())))
+                .andExpect(jsonPath("$.rating", is(r1.getZipcode())));
 
         //DELETE
         mvc.perform(delete("/example/v1/hotels/" + id))
@@ -108,7 +108,7 @@ JSONAssert.assertEquals(
 
     @Test
     public void shouldCreateAndUpdateAndDelete() throws Exception {
-        Hotel r1 = mockHotel("shouldCreateAndUpdate");
+        Contact r1 = mockHotel("shouldCreateAndUpdate");
         byte[] r1Json = toJson(r1);
         //CREATE
         MvcResult result = mvc.perform(post("/example/v1/hotels")
@@ -120,7 +120,7 @@ JSONAssert.assertEquals(
                 .andReturn();
         long id = getResourceIdFromUrl(result.getResponse().getRedirectedUrl());
 
-        Hotel r2 = mockHotel("shouldCreateAndUpdate2");
+        Contact r2 = mockHotel("shouldCreateAndUpdate2");
         r2.setId(id);
         byte[] r2Json = toJson(r2);
 
@@ -139,8 +139,8 @@ JSONAssert.assertEquals(
                 .andExpect(jsonPath("$.id", is((int) id)))
                 .andExpect(jsonPath("$.name", is(r2.getName())))
                 .andExpect(jsonPath("$.city", is(r2.getCity())))
-                .andExpect(jsonPath("$.description", is(r2.getDescription())))
-                .andExpect(jsonPath("$.rating", is(r2.getRating())));
+                .andExpect(jsonPath("$.description", is(r2.getEmail())))
+                .andExpect(jsonPath("$.rating", is(r2.getZipcode())));
 
         //DELETE
         mvc.perform(delete("/example/v1/hotels/" + id))
@@ -158,12 +158,12 @@ JSONAssert.assertEquals(
     }
 
 
-    private Hotel mockHotel(String prefix) {
-        Hotel r = new Hotel();
+    private Contact mockHotel(String prefix) {
+        Contact r = new Contact();
         r.setCity(prefix + "_city");
-        r.setDescription(prefix + "_description");
+        r.setEmail(prefix + "_description");
         r.setName(prefix + "_name");
-        r.setRating(new Random().nextInt(6));
+        r.setZipcode(new Random().nextInt(6));
         return r;
     }
 

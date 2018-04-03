@@ -1,22 +1,22 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: hotel-api
+  name: integration-api
 spec:
   replicas: 1
   strategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: hotel-api
+      app: integration-api
   template:
     metadata:
       labels:
-        app: hotel-api
+        app: integration-api
     spec:
       containers:
-        - name: hotel-api
-          image: sidgs001/hotel-api:latest
+        - name: integration-api
+          image: yva19426/integration-api:latest
           ports:
             - containerPort: 8090
           env:

@@ -1,6 +1,7 @@
-package com.sidgs.example.service;
+package com.integration.service;
 
 
+import com.integration.service.ServiceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
  * into the Spring Boot health management endpoint.
  */
 @Component
-public class HotelServiceHealth implements HealthIndicator {
+public class ServiceHealth implements HealthIndicator {
 
     @Autowired
     private ServiceProperties configuration;

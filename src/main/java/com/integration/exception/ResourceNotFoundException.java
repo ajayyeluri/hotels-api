@@ -1,4 +1,4 @@
-package com.sidgs.example.exception;
+package com.integration.exception;
 
 /**
  * For HTTP 404 errros

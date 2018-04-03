@@ -1,8 +1,8 @@
-package com.sidgs.example.api.rest;
+package com.integration.api.rest;
 
-import com.sidgs.example.domain.RestErrorInfo;
-import com.sidgs.example.exception.DataFormatException;
-import com.sidgs.example.exception.ResourceNotFoundException;
+import com.integration.domain.RestErrorInfo;
+import com.integration.exception.DataFormatException;
+import com.integration.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;

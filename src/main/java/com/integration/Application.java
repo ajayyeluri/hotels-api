@@ -1,4 +1,4 @@
-package com.sidgs.example;
+package com.integration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +18,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @Configuration
 @EnableAutoConfiguration  // Sprint Boot Auto Configuration
-@ComponentScan(basePackages = "com.sidgs.example")
-@EnableJpaRepositories("com.sidgs.example.dao.jpa") // To segregate MongoDB and JPA repositories. Otherwise not needed.
+@ComponentScan(basePackages = "com.integration.example")
+@EnableJpaRepositories("com.integration.example.dao.jpa") // To segregate MongoDB and JPA repositories. Otherwise not needed.
 public class Application extends SpringBootServletInitializer {
 
     private static final Class<Application> applicationClass = Application.class;

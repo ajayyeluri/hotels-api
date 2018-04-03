@@ -1,4 +1,4 @@
-package com.sidgs.example.service;
+package com.integration.service;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
